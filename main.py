@@ -6,17 +6,18 @@ backup_words = [
 
 
 def display_title(title_path):
-    """Prints the contents of the text file found in args.
+    """Prints the contents of the text file located in the path specified in
+    args.
 
     Args:
-        titleFilePath (str): The file name of the title, ending with '.txt'.
+        titleFilePath (str): The file path of the title text file.
     """
     try:
         with open(title_path, "r") as f:
             print(f.read())
     except FileNotFoundError:
         print(
-            "An error occurred while trying to access file…Exiting application."
+            "An error occurred while trying to access title file…Exiting application."
         )
         exit()
     except IOError:
@@ -27,12 +28,11 @@ def display_title(title_path):
 
 
 def get_rand_word(words_path, backup_words):
-    """Returns a random word from a text file or a backup list if the file is
+    """Returns a random word from a text file, or a backup list if the file is
     not found.
 
     Args:
-        wordsFilePath (str): The file name of the words list, ending with
-        '.txt'.
+        wordsFilePath (str): The file path of the words list.
         backupWordsList (list): Used if the file path is not found.
     """
     try:
@@ -52,8 +52,7 @@ def load_hangman_drawings(drawings_path):
     """Returns a list of hangman drawings from a text file.
 
     Args:
-        hangmanDrawingsFilePath (str): The file name of the drawings with .txt
-        at the end.copy()
+        hangmanDrawingsFilePath (str): The file path of the drawings.
     """
     try:
         with open(drawings_path, "r") as f:
@@ -117,7 +116,7 @@ def main():
     drawings_list = load_hangman_drawings("hangmanDrawings3.txt")
     max_incorrect_guesses = len(drawings_list) - 1
 
-    # ----- Main Game Loop --------
+    # ----- Main Game Loop -----
     while True:
         try:
             print(drawings_list[incorrect_guesses_count])
@@ -135,16 +134,14 @@ def main():
         print(get_blanked_word(word, guesses))
         print(incorrect_guesses or "{}")
 
-        guess_input = get_guess()
-        for guess_char in guess_input:
-            if guess_char in guesses:
-                continue
-            else:
-                guesses.update(guess_char)
-                if guess_char in list(word):
+        guess = get_guess()
+        for char in guess:
+            if not char in guesses:
+                guesses.update(char)
+                if char in list(word):
                     correct_guesses_count += 1
                 else:
-                    incorrect_guesses.update(guess_char)
+                    incorrect_guesses.update(char)
                     incorrect_guesses_count += 1
 
 
