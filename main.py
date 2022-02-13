@@ -10,7 +10,7 @@ def display_title(title_path):
     args.
 
     Args:
-        titleFilePath (str): The file path of the title text file.
+        titleFilePath (str): The path of the title text file.
     """
     try:
         with open(title_path, "r") as f:
@@ -32,7 +32,7 @@ def get_rand_word(words_path, backup_words):
     not found.
 
     Args:
-        wordsFilePath (str): The file path of the words list.
+        wordsFilePath (str): The path of the words list file.
         backupWordsList (list): Used if the file path is not found.
     """
     try:
@@ -52,7 +52,7 @@ def load_hangman_drawings(drawings_path):
     """Returns a list of hangman drawings from a text file.
 
     Args:
-        hangmanDrawingsFilePath (str): The file path of the drawings.
+        hangmanDrawingsFilePath (str): The path of the hangman drawings file.
     """
     try:
         with open(drawings_path, "r") as f:
@@ -95,8 +95,8 @@ def get_guess():
         return guess
 
 
-def has_player_won(unique_word_chars, correct_guesses_count):
-    return unique_word_chars == correct_guesses_count
+def has_player_won(correct_guesses_count, unique_word_chars):
+    return correct_guesses_count == unique_word_chars
 
 
 def has_player_lost(incorrect_guesses_count, max_incorrect_guesses):
@@ -124,7 +124,7 @@ def main():
             print(f'\nYou lost the game. The correct word was" "{word}"')
             break
 
-        if has_player_won(unique_word_chars, correct_guesses_count):
+        if has_player_won(correct_guesses_count, unique_word_chars):
             print("\nWell done...You guessed the word")
             break
         elif has_player_lost(incorrect_guesses_count, max_incorrect_guesses):
