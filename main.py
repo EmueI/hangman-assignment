@@ -73,7 +73,7 @@ def get_blanked_word(word, guesses):
 
     Args:
         word (str): The word to guess.
-        guesses (list): The guessed letters.
+        guesses (list): All guessed letters.
     """
     return (
         "  ".join(letter if letter in guesses else "_" for letter in word)
@@ -82,8 +82,8 @@ def get_blanked_word(word, guesses):
 
 
 def get_guess():
-    """Prompts for a guess input and returns it. A list of characters is
-    returned if the input has more than one letter.
+    """Prompts for a guess input and returns it. A list is returned if the 
+    input is longer than one.
     """
     guess = input("Guess a letter: ").lower()
     while not guess.isalpha():
